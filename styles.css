@@ -1,0 +1,113 @@
+body {
+  font-family: Calibri, sans-serif;
+  background-color: #f4f4f4;
+  color: #171d28;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.calculator-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: #68916a;
+  margin-bottom: 20px;
+}
+
+.input-section, .result-section {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  margin-bottom: 15px;
+}
+
+.input-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.input-field input, .input-field select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.1em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  background: #68916a;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.1em;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+button:hover {
+  background: #5c8262;
+}
+
+/* Results section styling */
+.result-section {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 20px 30px;
+}
+
+.result-section h2 {
+  font-size: 2em;
+  color: #27372d;
+  margin-bottom: 25px;  /* Increased spacing between title and result message */
+}
+
+.result-section p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  background-color: #ffd5d4;  /* Matches Reset button color */
+  padding: 2px 4px;
+  font-weight: bold;
+}
+
+/* Savings breakdown list */
+.savings-breakdown h3 {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+  color: #27372d;
+}
+.savings-breakdown ul {
+  list-style-type: disc;
+  margin: 0;
+  padding-left: 20px;
+}
+.savings-breakdown li {
+  margin-bottom: 8px;
+  font-size: 1.1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .calculator-container {
+    padding: 20px;
+  }
+}
