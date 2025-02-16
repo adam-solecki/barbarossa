@@ -11,10 +11,29 @@
     body {
       margin: 0;
       padding: 0;
-      background: #f0f0f0;
+      background: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+    #game-container {
+      margin: 20px auto;
+      width: 800px;
+      border: 2px solid #333;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    #info-panel {
+      width: 800px;
+      margin: 10px auto;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+  <!-- Game container for Phaser to attach the canvas -->
+  <div id="game-container"></div>
+  <!-- Information panel for game status -->
+  <div id="info-panel">
+    <h2>Barbarossa - 2D Turn-Based Strategy</h2>
+    <p id="status-text">Loading game...</p>
+  </div>
 </body>
 </html>
