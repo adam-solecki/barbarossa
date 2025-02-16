@@ -1,17 +1,18 @@
 // game.js
 
-// Configuration for the Phaser game
+// Phaser game configuration
 const config = {
   type: Phaser.AUTO,
   width: 800,
-  height: 600,
-  backgroundColor: '#f0f0f0',
+  height: 576, // 9 rows * 64 pixels each = 576 pixels height
+  backgroundColor: '#e0e0e0', // Light gray background for better contrast
+  parent: 'game-container', // Attach the canvas to our div container
   scene: [MainScene]
 };
 
 const game = new Phaser.Game(config);
 
-// Main Scene for the game
+// Main game scene
 class MainScene extends Phaser.Scene {
   constructor() {
     super({ key: 'MainScene' });
@@ -21,7 +22,7 @@ class MainScene extends Phaser.Scene {
     this.rows = 9;
     // Turn and weather management
     this.currentTurn = 'Germany'; // Starting turn
-    this.turnPhase = 'movement'; // Phases can be expanded: movement, combat, reinforcement
+    this.turnPhase = 'movement'; // Phases: movement, combat, reinforcement
     this.weather = 'Summer'; // Weather stages: Summer, Fall, Winter
     // Game entities
     this.units = [];
@@ -31,11 +32,11 @@ class MainScene extends Phaser.Scene {
   }
 
   preload() {
-    // Preload assets here if you have any (e.g., images for units or terrain)
+    // Preload assets if you have any (images, sprites, etc.)
   }
 
   create() {
-    // Draw the game grid (using square grid for simplicity)
+    // Draw the grid on the canvas
     this.drawGrid();
 
     // Initialize units on the board
@@ -43,28 +44,28 @@ class MainScene extends Phaser.Scene {
 
     // Create a graphics layer for the Fog of War
     this.fogOfWarGraphics = this.add.graphics();
+    
+    // Draw the units and update the fog
+    this.drawUnits();
     this.updateFogOfWar();
 
     // Input handler for pointer clicks
     this.input.on('pointerdown', this.handlePointerDown, this);
 
-    // Display text to show current turn and weather
-    this.turnText = this.add.text(
-      10,
-      10,
-      `Turn: ${this.currentTurn} (${this.turnPhase}) - Weather: ${this.weather}`,
-      { font: '16px Arial', fill: '#000' }
-    );
+    // Display game status text on the HTML info panel
+    this.updateStatusText();
   }
 
   // Draw a grid on the canvas
   drawGrid() {
     const graphics = this.add.graphics();
-    graphics.lineStyle(1, 0x000000, 1);
+    graphics.lineStyle(2, 0x333333, 1);
+    // Vertical lines
     for (let i = 0; i <= this.cols; i++) {
       graphics.moveTo(i * this.gridSize, 0);
       graphics.lineTo(i * this.gridSize, this.rows * this.gridSize);
     }
+    // Horizontal lines
     for (let j = 0; j <= this.rows; j++) {
       graphics.moveTo(0, j * this.gridSize);
       graphics.lineTo(this.cols * this.gridSize, j * this.gridSize);
@@ -133,10 +134,12 @@ class MainScene extends Phaser.Scene {
             this.handleCombat(this.selectedUnit, enemy);
           }
 
-          // Update fog of war visibility after movement
+          // Redraw units and update fog after movement
+          this.drawUnits();
           this.updateFogOfWar();
-          // End the turn after movement and any combat
+          // End turn after movement and any combat
           this.endTurn();
+          this.updateStatusText();
         }
       }
     }
@@ -183,8 +186,6 @@ class MainScene extends Phaser.Scene {
         }
       }
     }
-    // Redraw units on top of the fog
-    this.drawUnits();
   }
 
   // Draw units on the grid (simple circles to represent units)
@@ -196,8 +197,16 @@ class MainScene extends Phaser.Scene {
     }
     this.units.forEach(unit => {
       const color = (unit.team === 'Germany') ? 0xff0000 : 0x0000ff;
+      // Draw unit circle
       this.unitGraphics.fillStyle(color, 1);
       this.unitGraphics.fillCircle(
+        unit.x * this.gridSize + this.gridSize / 2,
+        unit.y * this.gridSize + this.gridSize / 2,
+        this.gridSize / 3
+      );
+      // Draw unit ID for clarity
+      this.unitGraphics.lineStyle(1, 0xffffff);
+      this.unitGraphics.strokeCircle(
         unit.x * this.gridSize + this.gridSize / 2,
         unit.y * this.gridSize + this.gridSize / 2,
         this.gridSize / 3
@@ -221,10 +230,15 @@ class MainScene extends Phaser.Scene {
     }
     // Reset selected unit for the next turn
     this.selectedUnit = null;
-    this.turnText.setText(`Turn: ${this.currentTurn} (${this.turnPhase}) - Weather: ${this.weather}`);
+  }
+
+  // Update the status text in the HTML info panel
+  updateStatusText() {
+    const statusText = document.getElementById('status-text');
+    statusText.textContent = `Turn: ${this.currentTurn} (${this.turnPhase}) - Weather: ${this.weather}`;
   }
 
   update(time, delta) {
-    // Game loop update (if needed for animations or AI)
+    // Game loop update (if needed for animations or AI behavior)
   }
 }
