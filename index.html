@@ -1,49 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FIRE Calculator</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Barbarossa - 2D Turn-Based Strategy</title>
+  <!-- Include Phaser.js from a CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.55.2/phaser.min.js"></script>
+  <!-- Link to our main game code -->
+  <script src="game.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+    }
+  </style>
 </head>
 <body>
-  <div class="calculator-container">
-    <h1>FIRE Calculator</h1>
-    <div class="input-section">
-      <div class="input-field">
-        <label for="currentAge">Current Age:</label>
-        <input type="number" id="currentAge" placeholder="e.g. 30" required>
-      </div>
-      <div class="input-field">
-        <label for="retireAge">Desired Retirement Age:</label>
-        <input type="number" id="retireAge" placeholder="e.g. 65" required>
-      </div>
-      <div class="input-field">
-        <label for="annualBudget">Desired Annual Retirement Budget ($):</label>
-        <input type="number" id="annualBudget" placeholder="e.g. 40,000" required>
-      </div>
-      <div class="input-field">
-        <label for="annualReturn">Expected Annual Return (%)</label>
-        <input type="number" id="annualReturn" placeholder="e.g. 7" value="7" required>
-      </div>
-      <button onclick="calculateFIRE()">Calculate My Savings Requirement</button>
-    </div>
-
-    <div class="result-section" id="resultSection" style="display: none;">
-      <h2 id="resultTitle"></h2>
-      <p id="resultMessage"></p>
-      <div class="savings-breakdown">
-        <h3>Savings Needed:</h3>
-        <ul>
-          <li>Per week: <span id="perWeek"></span></li>
-          <li>Per fortnight: <span id="perFortnight"></span></li>
-          <li>Per month: <span id="perMonth"></span></li>
-          <li>Per year: <span id="perYear"></span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
